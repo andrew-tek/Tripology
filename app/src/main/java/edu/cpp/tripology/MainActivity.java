@@ -9,7 +9,6 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import edu.cpp.tripology.data.TripInformation;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,34 +16,34 @@ public class MainActivity extends AppCompatActivity {
     Button startNewTripButton;
     @BindView(R.id.buttonViewPlan)
     Button viewPlanButton;
-    private TripInformation tripInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home);
         ButterKnife.bind(this);
-        loadDataLocally();
+        Paper.init(this);
     }
 
-    public void loadDataLocally() {
-        tripInfo = Paper.book().read("tripInfo", new TripInformation());
-    }
 
     @OnClick(R.id.buttonViewPlan)
     public void changeScreenToViewPlan() {
-        if (tripInfo == null) {
-            Intent intent = new Intent(this, TripPlanActivity.class);
+        String destination = Paper.book().read("destination", new String());
+        Intent intent;
+        if (destination.equals("")) {
+            intent = new Intent(this, DestinationInfoActivity.class);
         }
         else {
-            Intent intent = new Intent(this, DestinationInfoActivity.class);
-            startActivity(intent);
+            intent = new Intent(this, TripPlanActivity.class);
         }
+        startActivity(intent);
     }
 
     @OnClick(R.id.buttonNewPlan)
     public void changeScreenToNewPlan () {
+        Paper.book().destroy();
         Intent intent = new Intent(this, DestinationInfoActivity.class);
         startActivity(intent);
     }
+
 }
