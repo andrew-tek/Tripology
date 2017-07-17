@@ -31,7 +31,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewGrandTotal"
+
                 android:text="Grand Total: "
                 android:layout_margin="10sp"
                 android:textSize="20sp"
@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/textViewGrandTotal"
                 android:text="$2000"
                 android:layout_marginTop="10sp"
                 android:textSize="20sp"
@@ -57,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/textViewDailyCost"
                 android:text="$150"
                 android:layout_marginTop="10sp"
                 android:textSize="20sp"
