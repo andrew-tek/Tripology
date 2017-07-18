@@ -90,13 +90,14 @@ public class TripPlanActivity extends AppCompatActivity {
         weeks = (int) tempWeeks;
         weeksUntilVacation.setText(String.valueOf(weeks));
 
-        if (weekAmount == -1) {
-            if (weeks == 0)
-                weeks = 1;
+//        if (weekAmount == -1 || weekAmount == 0) {
+//            if (weeks == 0)
+//                weeks = 1;
             weekAmount = grandTotal / weeks;
             Paper.book().write("amountPerWeek", String.valueOf(weekAmount));
-        }
-        amountPerWeek.setText(String.valueOf(weekAmount));
+//        }
+
+        amountPerWeek.setText("$" + String.valueOf(weekAmount));
 
         remainingTotal = new String ("$" + String.valueOf(grandTotal - amountSaved));
         costRemaining.setText(remainingTotal);

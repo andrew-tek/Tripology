@@ -38,7 +38,7 @@ public class TripSummaryActivity extends AppCompatActivity {
     private int airFare;
     private int grandTotal;
     private int dailyCost;
-    private int currencyRate;
+    private double currencyRate;
     private String currencyName;
     private String destination;
 
@@ -55,7 +55,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         transportation = Integer.parseInt(Paper.book().read("transportation").toString());
         misc = Integer.parseInt(Paper.book().read("misc").toString());
         airFare = Integer.parseInt(Paper.book().read("airFare").toString());
-        currencyRate = Integer.parseInt(Paper.book().read("currencyRate").toString());
+        currencyRate = Double.parseDouble(Paper.book().read("currencyRate").toString());
         currencyName = Paper.book().read("currencyName").toString();
 
         setContentView(R.layout.activity_trip_summary);
@@ -64,7 +64,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         grandTotalTextView.setText(getGrandTotal());
         dailyCostTextView.setText(getDailyCost());
         duration.setText(String.valueOf(tripDuration) + " day(s)");
-        int costPerDay = currencyRate * (food + hotel + entertainment + transportation + misc);
+        int costPerDay = (int)currencyRate * (food + hotel + entertainment + transportation + misc);
         String cost = String.valueOf(costPerDay) + " " + currencyName;
         destinationTextView.setText(destination.toString());
         currencyTextView.setText(cost);
