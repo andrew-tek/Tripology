@@ -1,6 +1,8 @@
 package edu.cpp.tripology;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -41,9 +43,35 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonNewPlan)
     public void changeScreenToNewPlan () {
-        Paper.book().destroy();
-        Intent intent = new Intent(this, DestinationInfoActivity.class);
-        startActivity(intent);
+        if (!Paper.book().read("grandTotal", "0").equals("0")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("This Will Erase Past Data").setPositiveButton("Ok", dialogClickListener)
+                    .setNegativeButton("Cancel", dialogClickListener).show();
+        }
+        else {
+            Paper.book().destroy();
+            Intent intent = new Intent(this, DestinationInfoActivity.class);
+            startActivity(intent);
+        }
     }
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which){
+                case DialogInterface.BUTTON_POSITIVE:
+                    Paper.book().destroy();
+                    startActivity(new Intent(getBaseContext(),DestinationInfoActivity.class));
+//                    Intent intent = new Intent(this, DestinationInfoActivity.class);
+//                    startActivity(intent);
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
+
+
 
 }

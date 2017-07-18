@@ -27,6 +27,9 @@ public class BudgetInputActivity extends AppCompatActivity {
     @BindView(R.id.datePicker)
     DatePicker datePicker;
     private Date date;
+    private int year;
+    private int month;
+    private int dayOfMonth;
 
     @Override
     public void onCreate (Bundle saveBundleInstance) {
@@ -48,8 +51,13 @@ public class BudgetInputActivity extends AppCompatActivity {
     @OnClick(R.id.buttonBudgetInputContinue)
     public void changeScreenContinue() {
         getDate();
-        Paper.book().write("startDate", date.getTime());
+//        Paper.book().write("startDate", date.getTime());
         Paper.book().write("dayMonth", datePicker.getDayOfMonth());
+
+        Paper.book().write("year", datePicker.getYear());
+        Paper.book().write("month", datePicker.getMonth());
+        Paper.book().write("dayOfMonth", datePicker.getDayOfMonth());
+
         Intent intent = new Intent(this, TripPlanActivity.class);
         startActivity(intent);
     }
@@ -58,10 +66,11 @@ public class BudgetInputActivity extends AppCompatActivity {
         date = new Date (datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
     }
     void loadDate() {
-        long time = new Long (Paper.book().read("startDate", 0));
-        int dayMonth = Paper.book().read("dayMonth", 0);
-        if (time != 0) {
-            date = new Date(time);
+        year = Paper.book().read("year", 0);
+        if (year != 0) {
+            month = Paper.book().read("month");
+            dayOfMonth = Paper.book().read("dayOfMonth");
+            datePicker.updateDate(year, month, dayOfMonth);
         }
     }
 

@@ -4,71 +4,95 @@
     android:layout_margin="10sp"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/textViewCostRemaining"
+        android:layout_margin="5sp"
         android:text="$1000 REMAINING"
-        android:textSize="20sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="#f95959"
         android:layout_gravity="center"
         android:layout_marginBottom="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ProgressBar
+        android:layout_margin="5sp"
+        android:id="@+id/progressBar"
         android:progress="20"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_margin="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
             android:text="Weeks Until Vacation:    "
+            android:textSize="20sp"
             android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:text="3 weeks"
+            android:textSize="20sp"
+            android:textColor="#f95959"
+            android:id="@+id/textViewWeeksUntilVacation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_margin="10sp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:text="Amount Needed to Save Per Week:    "
+            android:text="Amount to Save Per Week: "
             android:textColor="#000"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/textViewAmountPerWeek"
             android:text="$100"
+            android:textSize="20sp"
+            android:textColor="#f95959"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:layout_margin="10sp"
+            android:layout_weight="8"
             android:id="@+id/editTextMoneySaved"
             android:hint="Enter Amount Saved"
-            android:layout_width="wrap_content"
+            android:layout_width="0sp"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_margin="10sp"
+            android:layout_weight="3"
+            android:background="#f95959"
+            android:textColor="#ffffff"
             android:text="Record"
             android:id="@+id/buttonMoneySaved"
-            android:layout_width="wrap_content"
+            android:layout_width="0sp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+        <Button
+            android:layout_margin="10sp"
+            android:background="#969b9a"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:text="Edit Plan"
+            android:id="@+id/buttonTripPlanEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:text="Edit Plan"
-        android:id="@+id/buttonTripPlanEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
 

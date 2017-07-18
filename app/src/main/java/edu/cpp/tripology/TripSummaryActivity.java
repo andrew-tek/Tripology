@@ -25,6 +25,10 @@ public class TripSummaryActivity extends AppCompatActivity {
     TextView dailyCostTextView;
     @BindView(R.id.textViewDurationOfTrip)
     TextView duration;
+    @BindView(R.id.textViewSummaryDestination)
+    TextView destinationTextView;
+    @BindView(R.id.textViewSummaryCurrency)
+    TextView currencyTextView;
     private int tripDuration;
     private int food;
     private int hotel;
@@ -34,12 +38,16 @@ public class TripSummaryActivity extends AppCompatActivity {
     private int airFare;
     private int grandTotal;
     private int dailyCost;
+    private int currencyRate;
+    private String currencyName;
+    private String destination;
 
 
 
     @Override
     protected void onCreate (Bundle bundleSavedInstance) {
         super.onCreate(bundleSavedInstance);
+        destination = Paper.book().read("destination");
         tripDuration = Integer.parseInt(Paper.book().read("tripDuration").toString());
         food = Integer.parseInt(Paper.book().read("food").toString());
         hotel = Integer.parseInt(Paper.book().read("hotel").toString());
@@ -47,13 +55,21 @@ public class TripSummaryActivity extends AppCompatActivity {
         transportation = Integer.parseInt(Paper.book().read("transportation").toString());
         misc = Integer.parseInt(Paper.book().read("misc").toString());
         airFare = Integer.parseInt(Paper.book().read("airFare").toString());
+        currencyRate = Integer.parseInt(Paper.book().read("currencyRate").toString());
+        currencyName = Paper.book().read("currencyName").toString();
 
         setContentView(R.layout.activity_trip_summary);
         ButterKnife.bind(this);
 
         grandTotalTextView.setText(getGrandTotal());
         dailyCostTextView.setText(getDailyCost());
-        duration.setText(String.valueOf(tripDuration));
+        duration.setText(String.valueOf(tripDuration) + " day(s)");
+        int costPerDay = currencyRate * (food + hotel + entertainment + transportation + misc);
+        String cost = String.valueOf(costPerDay) + " " + currencyName;
+        destinationTextView.setText(destination.toString());
+        currencyTextView.setText(cost);
+
+
 
     }
 
@@ -76,11 +92,11 @@ public class TripSummaryActivity extends AppCompatActivity {
     }
     public String getGrandTotal() {
         grandTotal = airFare + (tripDuration * (food + hotel + entertainment + transportation + misc));
-        return String.valueOf(grandTotal);
+        return "$" + String.valueOf(grandTotal);
     }
     public String getDailyCost() {
         dailyCost = food + hotel + entertainment + transportation + misc;
-        return String.valueOf(dailyCost);
+        return "$" + String.valueOf(dailyCost);
     }
 
 }
