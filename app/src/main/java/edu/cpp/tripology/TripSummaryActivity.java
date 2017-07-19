@@ -30,12 +30,12 @@ public class TripSummaryActivity extends AppCompatActivity {
     @BindView(R.id.textViewSummaryCurrency)
     TextView currencyTextView;
     private int tripDuration;
-    private int food;
-    private int hotel;
-    private int entertainment;
-    private int transportation;
-    private int misc;
-    private int airFare;
+    private double food;
+    private double hotel;
+    private double entertainment;
+    private double transportation;
+    private double misc;
+    private double airFare;
     private int grandTotal;
     private int dailyCost;
     private double currencyRate;
@@ -48,13 +48,15 @@ public class TripSummaryActivity extends AppCompatActivity {
     protected void onCreate (Bundle bundleSavedInstance) {
         super.onCreate(bundleSavedInstance);
         destination = Paper.book().read("destination");
-        tripDuration = Integer.parseInt(Paper.book().read("tripDuration").toString());
-        food = Integer.parseInt(Paper.book().read("food").toString());
-        hotel = Integer.parseInt(Paper.book().read("hotel").toString());
-        entertainment = Integer.parseInt(Paper.book().read("entertainment").toString());
-        transportation = Integer.parseInt(Paper.book().read("transportation").toString());
-        misc = Integer.parseInt(Paper.book().read("misc").toString());
-        airFare = Integer.parseInt(Paper.book().read("airFare").toString());
+        double temp;
+        temp = Double.parseDouble(Paper.book().read("tripDuration").toString());
+        tripDuration = (int) temp;
+        food = Double.parseDouble(Paper.book().read("food").toString());
+        hotel = Double.parseDouble(Paper.book().read("hotel").toString());
+        entertainment = Double.parseDouble(Paper.book().read("entertainment").toString());
+        transportation = Double.parseDouble(Paper.book().read("transportation").toString());
+        misc = Double.parseDouble(Paper.book().read("misc").toString());
+        airFare = Double.parseDouble(Paper.book().read("airFare").toString());
         currencyRate = Double.parseDouble(Paper.book().read("currencyRate").toString());
         currencyName = Paper.book().read("currencyName").toString();
 
@@ -64,7 +66,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         grandTotalTextView.setText(getGrandTotal());
         dailyCostTextView.setText(getDailyCost());
         duration.setText(String.valueOf(tripDuration) + " day(s)");
-        int costPerDay = (int)currencyRate * (food + hotel + entertainment + transportation + misc);
+        int costPerDay = (int)currencyRate * ((int)food + (int)hotel + (int)entertainment + (int)transportation + (int)misc);
         String cost = String.valueOf(costPerDay) + " " + currencyName;
         destinationTextView.setText(destination.toString());
         currencyTextView.setText(cost);
@@ -91,11 +93,13 @@ public class TripSummaryActivity extends AppCompatActivity {
         Paper.book().write("dailyCost", String.valueOf(dailyCost));
     }
     public String getGrandTotal() {
-        grandTotal = airFare + (tripDuration * (food + hotel + entertainment + transportation + misc));
-        return "$" + String.valueOf(grandTotal);
+        grandTotal = (int)airFare + ((int)tripDuration * ((int)food + (int)hotel + (int)entertainment
+                + (int)transportation + (int)misc));
+
+        return "$" + Integer.toString(grandTotal);
     }
     public String getDailyCost() {
-        dailyCost = food + hotel + entertainment + transportation + misc;
+        dailyCost = (int)food + (int)hotel + (int)entertainment + (int)transportation +(int) misc;
         return "$" + String.valueOf(dailyCost);
     }
 

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:background="@drawable/edittext_border_style"
+            android:paddingLeft="7sp"
             android:id="@+id/editTextHotel"
             android:inputType="numberDecimal"
             android:textColor="#000000"
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:background="@drawable/edittext_border_style"
+            android:paddingLeft="7sp"
             android:id="@+id/editTextFood"
             android:inputType="numberDecimal"
             android:textColor="#000000"
@@ -63,6 +65,7 @@
         <EditText
             android:background="@drawable/edittext_border_style"
             android:id="@+id/editTextEntertainment"
+            android:paddingLeft="7sp"
             android:inputType="numberDecimal"
             android:textSize="20sp"
             android:textColor="#000000"
@@ -79,6 +82,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:background="@drawable/edittext_border_style"
+            android:paddingLeft="7sp"
             android:textSize="20sp"
             android:inputType="numberDecimal"
             android:id="@+id/editTextTransportation"
@@ -95,6 +99,7 @@
             android:layout_height="wrap_content" />
         <EditText
             android:background="@drawable/edittext_border_style"
+            android:paddingLeft="7sp"
             android:id="@+id/editTextMisc"
             android:inputType="numberDecimal"
             android:textSize="20sp"

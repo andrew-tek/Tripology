@@ -35,7 +35,7 @@ public class TripPlanActivity extends AppCompatActivity {
     @BindView(R.id.textViewCostRemaining)
     TextView costRemaining;
 
-    private int amountSaved;
+    private double amountSaved;
     private int grandTotal;
     private int weeks;
     private Date targetDate;
@@ -54,14 +54,25 @@ public class TripPlanActivity extends AppCompatActivity {
 
     @OnClick (R.id.buttonMoneySaved)
     public void makePayment() {
-        amountSaved += Integer.parseInt(moneySaved.getText().toString());
-        if (amountSaved > 0) {
-            progressBar.setProgress(amountSaved);
-            remainingTotal = new String("$");
-            remainingTotal += String.valueOf(grandTotal - amountSaved);
-            costRemaining.setText(remainingTotal);
-            Paper.book().write("moneySaved", String.valueOf(amountSaved));
-            moneySaved.setText("");
+        String tempString;
+        tempString = moneySaved.getText().toString();
+        if (tempString.equals("")) {}
+        else {
+            amountSaved += Integer.parseInt(moneySaved.getText().toString());
+            if (amountSaved > 0) {
+                progressBar.setProgress((int)amountSaved);
+                remainingTotal = new String("$");
+                int temp = grandTotal - (int) amountSaved;
+                remainingTotal += String.valueOf(temp);
+                if (temp < 0) {
+                    remainingTotal = "0";
+                    Paper.book().write("moneySaved", String.valueOf(grandTotal));
+                }
+                else
+                    Paper.book().write("moneySaved", String.valueOf(amountSaved));
+                costRemaining.setText(remainingTotal);
+                moneySaved.setText("");
+            }
         }
 
     }
@@ -75,8 +86,8 @@ public class TripPlanActivity extends AppCompatActivity {
         grandTotal = Integer.parseInt(Paper.book().read("grandTotal", "100"));
         progressBar.setMax(grandTotal);
         weekAmount = Integer.parseInt(Paper.book().read("amountPerWeek", "-1"));
-        amountSaved = Integer.parseInt(Paper.book().read("moneySaved", "0"));
-        progressBar.setProgress(amountSaved);
+        amountSaved = Double.parseDouble(Paper.book().read("moneySaved", "0"));
+        progressBar.setProgress((int)amountSaved);
         int year = Paper.book().read("year", 0);
         year -= 1900;
         int month = Paper.book().read("month", 0);
@@ -91,15 +102,15 @@ public class TripPlanActivity extends AppCompatActivity {
         weeksUntilVacation.setText(String.valueOf(weeks));
 
 //        if (weekAmount == -1 || weekAmount == 0) {
-//            if (weeks == 0)
-//                weeks = 1;
+            if (weeks == 0)
+                weeks = 1;
             weekAmount = grandTotal / weeks;
             Paper.book().write("amountPerWeek", String.valueOf(weekAmount));
 //        }
 
         amountPerWeek.setText("$" + String.valueOf(weekAmount));
 
-        remainingTotal = new String ("$" + String.valueOf(grandTotal - amountSaved));
+        remainingTotal = new String ("$" + String.valueOf(grandTotal - (int)amountSaved));
         costRemaining.setText(remainingTotal);
     }
 
